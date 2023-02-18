@@ -1,63 +1,59 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-void merge(int arr[], int p, int q, int r) {
+void merge(vector<int>& v, int s, int m, int e) {
 
-  int n1 = q - p + 1;
-  int n2 = r - q;
+	vector<int> temp;
 
-  int L[n1], M[n2];
+	int i, j;
+	i = s;
+	j = m + 1;
 
-  for (int i = 0; i < n1; i++)
-    L[i] = arr[p + i];
-  for (int j = 0; j < n2; j++)
-    M[j] = arr[q + 1 + j];
+	while (i <= m && j <= e) {
 
-  int i, j, k;
-  i = 0;
-  j = 0;
-  k = p;
+		if (v[i] <= v[j]) {
+			temp.push_back(v[i]);
+			++i;
+		}
+		else {
+			temp.push_back(v[j]);
+			++j;
+		}
 
-  while (i < n1 && j < n2) {
-    if (L[i] <= M[j]) {
-      arr[k] = L[i];
-      i++;
-    } else {
-      arr[k] = M[j];
-      j++;
-    }
-    k++;
-  }
-  while (i < n1) {
-    arr[k] = L[i];
-    i++;
-    k++;
-  }
+	}
 
-  while (j < n2) {
-    arr[k] = M[j];
-    j++;
-    k++;
-  }
+	while (i <= m) {
+		temp.push_back(v[i]);
+		++i;
+	}
+
+	while (j <= e) {
+		temp.push_back(v[j]);
+		++j;
+	}
+
+	for (int i = s; i <= e; ++i)
+		v[i] = temp[i - s];
+
 }
-void mergeSort(int arr[], int l, int r) {
-  if (l < r) {
-    int m = l + (r - l) / 2;
 
-    mergeSort(arr, l, m);
-    mergeSort(arr, m + 1, r);
-    merge(arr, l, m, r);
-  }
+void MergeSort(vector<int>& v, int s, int e) {
+	if (s < e) {
+		int m = (s + e) / 2;
+		MergeSort(v, s, m);
+		MergeSort(v, m + 1, e);
+		merge(v, s, m, e);
+	}
 }
 
 int main() {
-  int arr[] = {9,1,3,59,2,3,5};
-  int size = sizeof(arr) / sizeof(arr[0]);
+	vector<int> arr = {9, 1, 3, 59, 2, 3, 5};
+    int n = arr.size();
+	MergeSort(arr, 0, n - 1);
 
-  mergeSort(arr, 0, size - 1);
+	for (int i = 0; i < n; ++i) {
+		cout << arr[i] << ' ';
+	}
 
-  cout << "Sorted array: \n";
-  for (int i = 0; i < size; i++)
-    cout << arr[i] << " ";
-  return 0;
 }

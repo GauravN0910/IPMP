@@ -1,17 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void swap(int &a, int &b){
+void swap(int &a, int &b)
+{
     int temp = a;
     a = b;
     b = temp;
 }
 
-void selection(vector<int> arr,int n){
-    for(int i = 0; i < n; i++){
+void selection(vector<int> arr, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
         int min = i;
-        for(int j = i; j < n; j++){
-            if(arr[j] < arr[min]){
+        for (int j = i; j < n; j++)
+        {
+            if (arr[j] < arr[min])
+            {
                 min = j;
             }
         }
@@ -19,11 +24,13 @@ void selection(vector<int> arr,int n){
     }
 }
 
-int main(){
-    vector<int>arr = {5,4,2,3,8,3,92,22,4568};
+int main()
+{
+    vector<int> arr = {9, 1, 3, 59, 2, 3, 5};
     int n = arr.size();
-    selection(arr,n);
-    for(int i = 0; i < n; i++){
+    selection(arr, n);
+    for (int i = 0; i < n; i++)
+    {
         cout << arr[i] << " ";
     }
 }
