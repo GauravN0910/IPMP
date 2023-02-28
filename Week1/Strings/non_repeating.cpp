@@ -1,36 +1,29 @@
 #include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
-void nonrepeating(int* arr, int n, int* x, int* y){
-    int xr=arr[0];
-    *x=0;
-    *y=0;
-
-    for(int i=1;i<n;i++){
-        xr=xr^arr[i];
+int firstNonRepeating(string str)
+{
+    pair<int, int> arr[256];
+ 
+    for (int i = 0; str[i]; i++) {
+        (arr[str[i]].first)++;
+        arr[str[i]].second = i;
     }
+ 
+    int res = INT_MAX;
+    for (int i = 0; i < 256; i++)
 
-    int set= xr & ~(xr-1);
-
-    for(int i=0;i<n;i++){
-        if(set & arr[i]){
-            *x=*x^arr[i];
-        }
-        else{
-            *y=*y^arr[i];
-        }
-    }
+        if (arr[i].first == 1)
+            res = min(res, arr[i].second);
+ 
+    return res; 
 }
 
 int main(){
-    int n;
-    cin>>n;
-    int arr[n];
-    for(int i=0;i<n;i++){
-        cin>>arr[i];
-    }
-    int* x = new int;
-    int* y = new int;
-    nonrepeating(arr,n,x,y);
-    cout<<*x<<" "<<*y;
+    string str;
+    cin>>str;
+    int x=firstNonRepeating(str);
+
+    cout<<str[x];
 }
